@@ -356,5 +356,5 @@ buildScan {
 
 // Limit heap size in forked test processes for CI
 test {
-    maxHeapSize = "1024m"
+    maxHeapSize = "512m"
 }
