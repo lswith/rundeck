@@ -9,9 +9,11 @@ orbs:
 
 jobs:
   build:
-    docker:
+    machine:
+      image: default
+    # docker:
       # specify the version you desire here
-      - image: rundeck/ci@sha256:85ce247940c39bcb77794778c2b7aa02feabfa1a37036b88942bc0c1235495f2
+      # - image: rundeck/ci@sha256:85ce247940c39bcb77794778c2b7aa02feabfa1a37036b88942bc0c1235495f2
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
