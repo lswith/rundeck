@@ -22,8 +22,8 @@ jobs:
 
     environment:
       # Customize the JVM maximum heap limit
-      GRADLE_OPTS: -Xmx512m -XX:MaxPermSize=192m
-      _JAVA_OPTIONS: "-Xmx512m"
+      GRADLE_OPTS: -Xmx512m -XX:MaxPermSize=192m -Xss50m
+      _JAVA_OPTIONS: "-Xmx512m -Xss50m"
       TERM: dumb
       BASH_ENV: ~/.bash_profile
 
@@ -32,6 +32,5 @@ jobs:
       - setup_remote_docker
       - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
       - run: groovy testbuild.groovy --buildType=development
-      - run: make ENV=development rpm deb
       - docker-publish/check
       - run: ./gradlew docker:officialPush
