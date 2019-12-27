@@ -33,7 +33,7 @@ jobs:
       # - setup_remote_docker
       # - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
       # - run: ./gradlew --no-daemon --max-workers 2 test --stacktrace --info
-      - run: nvm install 8 && nvm use 8
+      - run: nvm install 8 && echo 'nvm use 8' >> $BASH_ENV
       - run: ./gradlew --no-daemon -x check install --stacktrace --info
       - run: ./gradlew --no-daemon test --stacktrace --info
       # - run: groovy testbuild.groovy --buildType=development
