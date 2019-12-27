@@ -28,7 +28,6 @@ jobs:
       GRADLE_OPTS: -Xmx512m -XX:MaxPermSize=192m -Xss50m
       _JAVA_OPTIONS: "-Xmx512m -Xms200m -Xss50m"
       TERM: dumb
-      BASH_ENV: ~/.bash_profile
 
     steps:
       - checkout
