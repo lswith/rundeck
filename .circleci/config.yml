@@ -15,6 +15,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: rundeck/ci@sha256:85ce247940c39bcb77794778c2b7aa02feabfa1a37036b88942bc0c1235495f2
+    resource_class: large
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -28,6 +29,7 @@ jobs:
       GRADLE_OPTS: -Xmx512m -XX:MaxPermSize=192m -Xss50m
       _JAVA_OPTIONS: "-Xmx512m -Xms200m -Xss50m"
       TERM: dumb
+      BASH_ENV: ~/.bashrc
 
     steps:
       - checkout
