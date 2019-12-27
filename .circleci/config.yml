@@ -8,7 +8,8 @@ orbs:
 
 jobs:
   build:
-    machine: true
+    machine:
+        image: circleci/classic:201808-01
     # machine:
     #   image: ubuntu-1604:201903-01
     # docker:
