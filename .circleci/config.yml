@@ -8,8 +8,7 @@ orbs:
 
 jobs:
   build:
-    machine:
-        image: circleci/classic:201808-01
+    machine: true
     # machine:
     #   image: ubuntu-1604:201903-01
     # docker:
@@ -25,15 +24,17 @@ jobs:
 
     environment:
       # Customize the JVM maximum heap limit
-      GRADLE_OPTS: -Xmx512m -XX:MaxPermSize=192m -Xss50m
-      _JAVA_OPTIONS: "-Xmx512m -Xms200m -Xss50m"
+      # GRADLE_OPTS: -Xmx512m -XX:MaxPermSize=192m -Xss50m
+      # _JAVA_OPTIONS: "-Xmx512m -Xms200m -Xss50m"
       TERM: dumb
 
     steps:
       - checkout
       # - setup_remote_docker
-      - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
-      - run: ./gradlew --no-daemon --max-workers 2 test --stacktrace --info
+      # - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
+      # - run: ./gradlew --no-daemon --max-workers 2 test --stacktrace --info
+      - run: ./gradlew --no-daemon -x check install --stacktrace --info
+      - run: ./gradlew --no-daemon test --stacktrace --info
       # - run: groovy testbuild.groovy --buildType=development
       # - docker-publish/check
       # - run: ./gradlew docker:officialPush
