@@ -31,7 +31,8 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: ./gradlew --no-daemon --max-workers 2 install --stacktrace --info
+      - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
+      - run: ./gradlew --no-daemon --max-workers 2 test --stacktrace --info
       # - run: groovy testbuild.groovy --buildType=development
       # - docker-publish/check
       # - run: ./gradlew docker:officialPush
