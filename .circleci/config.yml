@@ -5,6 +5,7 @@
 version: 2.1
 orbs:
   docker-publish: circleci/docker-publish@0.1.6
+  node: circleci/node@1.1.6
 
 jobs:
   build:
@@ -33,7 +34,8 @@ jobs:
       # - setup_remote_docker
       # - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
       # - run: ./gradlew --no-daemon --max-workers 2 test --stacktrace --info
-      - run: nvm install 8 && echo 'nvm use 8' >> $BASH_ENV
+      - node/install-node:
+        version: 8
       - run: ./gradlew --no-daemon -x check install --stacktrace --info
       - run: ./gradlew --no-daemon test --stacktrace --info
       # - run: groovy testbuild.groovy --buildType=development
