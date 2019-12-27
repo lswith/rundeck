@@ -3,12 +3,12 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2.1
-executorType: machine
 orbs:
   docker-publish: circleci/docker-publish@0.1.6
 
 jobs:
   build:
+    machine: true
     # machine:
     #   image: ubuntu-1604:201903-01
     # docker:
