@@ -35,7 +35,7 @@ jobs:
       # - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
       # - run: ./gradlew --no-daemon --max-workers 2 test --stacktrace --info
       - node/install-node:
-        version: '8'
+          version: '8'
       - run: ./gradlew --no-daemon -x check install --stacktrace --info
       - run: ./gradlew --no-daemon test --stacktrace --info
       # - run: groovy testbuild.groovy --buildType=development
