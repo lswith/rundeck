@@ -25,8 +25,8 @@ jobs:
 
     environment:
       # Customize the JVM maximum heap limit
-      # GRADLE_OPTS: -Xmx512m -XX:MaxPermSize=192m -Xss50m
-      # _JAVA_OPTIONS: "-Xmx512m -Xms200m -Xss50m"
+      GRADLE_OPTS: -Xmx512m -XX:MaxPermSize=192m -Xss50m
+      _JAVA_OPTIONS: "-Xmx512m -Xms200m -Xss50m"
       TERM: dumb
 
     steps:
@@ -49,9 +49,9 @@ jobs:
           paths:
             - ~/.gradle/caches
           key: v1-gradle-cache-{{ checksum "build.gradle" }}-{{ .BuildNum }}
-      # - run: groovy testbuild.groovy --buildType=development
-      # - docker-publish/check
-      # - run: ./gradlew docker:officialPush
+      - run: groovy testbuild.groovy --buildType=development
+      - docker-publish/check
+      - run: ./gradlew docker:officialPush
 
   test-gradle:
     machine: true
