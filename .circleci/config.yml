@@ -9,12 +9,12 @@ orbs:
 
 jobs:
   build:
-    machine: true
+    # machine: true
     # machine:
     #   image: ubuntu-1604:201903-01
-    # docker:
+    docker:
       # specify the version you desire here
-      # - image: rundeck/ci@sha256:85ce247940c39bcb77794778c2b7aa02feabfa1a37036b88942bc0c1235495f2
+      - image: rundeck/ci@sha256:85ce247940c39bcb77794778c2b7aa02feabfa1a37036b88942bc0c1235495f2
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -31,8 +31,7 @@ jobs:
 
     steps:
       - checkout
-      # - setup_remote_docker
-      # - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
+      - setup_remote_docker
       # - run: ./gradlew --no-daemon --max-workers 2 test --stacktrace --info
       - node/install-node:
         version: '8.13.0'
@@ -40,15 +39,16 @@ jobs:
           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
-      - run: ./gradlew --no-daemon -x check install --stacktrace --info
+      # - run: ./gradlew --no-daemon -x check install --stacktrace --info
+      - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
       - save_cache:
           paths:
             - ~/.gradle/wrapper
-          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ .BuildNum }}
       - save_cache:
           paths:
             - ~/.gradle/caches
-          key: v1-gradle-cache-{{ checksum "build.gradle" }}
+          key: v1-gradle-cache-{{ checksum "build.gradle" }}-{{ .BuildNum }}
       # - run: groovy testbuild.groovy --buildType=development
       # - docker-publish/check
       # - run: ./gradlew docker:officialPush
@@ -66,9 +66,13 @@ jobs:
       - node/install-node:
           version: '8.13.0'
       - restore_cache:
-          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+          keys:
+            - v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-{{ .BuildNum }}
+            - v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}-
       - restore_cache:
-          key: v1-gradle-cache-{{ checksum "build.gradle" }}
+          keys:
+            - v1-gradle-cache-{{ checksum "build.gradle" }}-{{ .BuildNum }}
+            - v1-gradle-cache-{{ checksum "build.gradle" }}-
       - run: ./gradlew --no-daemon test --stacktrace --info
       
 
