@@ -70,9 +70,8 @@ jobs:
 
 workflows:
   version: 2
-  build:
-    build-and-test:
-      jobs:
-        - build
-        - test-gradle:
-          requires: build
+  build-and-test:
+    jobs:
+      - build
+      - test-gradle:
+        requires: build
