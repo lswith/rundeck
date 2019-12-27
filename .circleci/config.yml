@@ -35,9 +35,44 @@ jobs:
       # - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
       # - run: ./gradlew --no-daemon --max-workers 2 test --stacktrace --info
       - node/install-node:
-          version: '8.13.0'
+        version: '8.13.0'
       - run: ./gradlew --no-daemon -x check install --stacktrace --info
-      - run: ./gradlew --no-daemon test --stacktrace --info
+      - save_cache:
+          paths:
+            - ~/.gradle/wrapper
+          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - save_cache:
+          paths:
+            - ~/.gradle/caches
+          key: v1-gradle-cache-{{ checksum "build.gradle" }}
       # - run: groovy testbuild.groovy --buildType=development
       # - docker-publish/check
       # - run: ./gradlew docker:officialPush
+
+  test-gradle:
+    machine: true
+
+    working_directory: ~/repo
+
+    environment:
+      TERM: dumb
+    
+    steps:
+      - checkout
+      - node/install-node:
+        version: '8.13.0'
+      - restore_cache:
+          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+      - restore_cache:
+          key: v1-gradle-cache-{{ checksum "build.gradle" }}
+      - run: ./gradlew --no-daemon test --stacktrace --info
+      
+
+workflows:
+  version: 2
+  build:
+    build-and-test:
+      jobs:
+        - build
+        - test-gradle:
+          requires: build
