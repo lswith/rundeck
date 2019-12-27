@@ -16,6 +16,8 @@ jobs:
       # specify the version you desire here
       - image: rundeck/ci@sha256:85ce247940c39bcb77794778c2b7aa02feabfa1a37036b88942bc0c1235495f2
 
+    resource_class: large
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -27,8 +29,8 @@ jobs:
       # Customize the JVM maximum heap limit
       GRADLE_OPTS: -Xmx512m -XX:MaxPermSize=192m -Xss50m
       _JAVA_OPTIONS: "-Xmx512m -Xms200m -Xss50m"
-      TERM: dumb
       BASH_ENV: ~/.bashrc
+      TERM: dumb
 
     steps:
       - checkout
@@ -41,7 +43,7 @@ jobs:
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       # - run: ./gradlew --no-daemon -x check install --stacktrace --info
-      - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
+      - run: ./gradlew --no-daemon --max-workers 4 -x check install --stacktrace --info
       - save_cache:
           paths:
             - ~/.gradle/wrapper
@@ -50,9 +52,9 @@ jobs:
           paths:
             - ~/.gradle/caches
           key: v1-gradle-cache-{{ checksum "build.gradle" }}-{{ .BuildNum }}
-      - run: groovy testbuild.groovy --buildType=development
-      - docker-publish/check
-      - run: ./gradlew docker:officialPush
+      # - run: groovy testbuild.groovy --buildType=development
+      # - docker-publish/check
+      # - run: ./gradlew docker:officialPush
 
   test-gradle:
     machine: true
