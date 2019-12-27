@@ -10,7 +10,7 @@ orbs:
 jobs:
   build:
     machine:
-      image: default
+      image: ubuntu-1604:201903-01
     # docker:
       # specify the version you desire here
       # - image: rundeck/ci@sha256:85ce247940c39bcb77794778c2b7aa02feabfa1a37036b88942bc0c1235495f2
@@ -32,7 +32,7 @@ jobs:
     steps:
       - checkout
       # - setup_remote_docker
-      - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
-      - run: groovy testbuild.groovy --buildType=development
-      - docker-publish/check
-      - run: ./gradlew docker:officialPush
+      # - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info
+      # - run: groovy testbuild.groovy --buildType=development
+      # - docker-publish/check
+      # - run: ./gradlew docker:officialPush
