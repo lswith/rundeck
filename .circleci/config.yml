@@ -36,8 +36,8 @@ jobs:
       - checkout
       - setup_remote_docker
       # - run: ./gradlew --no-daemon --max-workers 2 test --stacktrace --info
-      - node/install-node:
-          version: '8.13.0'
+      # - node/install-node:
+      #     version: '8.13.0'
       - restore_cache:
           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
