@@ -25,8 +25,9 @@ jobs:
     environment:
       # Customize the JVM maximum heap limit
       # GRADLE_OPTS: -Xmx512m -XX:MaxPermSize=192m -Xss50m
-      # _JAVA_OPTIONS: "-Xmx512m -Xss50m"
+      _JAVA_OPTIONS: "-Xmx3g"
       JVM_OPTS: -Xmx3200m
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
       TERM: dumb
       BASH_ENV: ~/.bash_profile
 
