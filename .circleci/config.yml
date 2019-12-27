@@ -37,13 +37,13 @@ jobs:
       - setup_remote_docker
       # - run: ./gradlew --no-daemon --max-workers 2 test --stacktrace --info
       - node/install-node:
-        version: '8.13.0'
+          version: '8.13.0'
       - restore_cache:
           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       # - run: ./gradlew --no-daemon -x check install --stacktrace --info
-      - run: ./gradlew --no-daemon --max-workers 4 -x check install --stacktrace --info
+      - run: ./gradlew --no-daemon --max-workers 4 -x check install --stacktrace --info --parallel
       - save_cache:
           paths:
             - ~/.gradle/wrapper
