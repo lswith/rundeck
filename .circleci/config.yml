@@ -44,6 +44,12 @@ jobs:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       # - run: ./gradlew --no-daemon -x check install --stacktrace --info
       - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info --parallel
+      - run:
+          name: Upload artifacts
+          command: |
+            source .circleci/travis-shim.sh
+            source scripts/travis-helpers.sh
+            copy_artifacts && sync_to_s3
       - save_cache:
           paths:
             - ~/.gradle/wrapper
