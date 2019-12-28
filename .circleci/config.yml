@@ -43,7 +43,7 @@ jobs:
       - restore_cache:
           key: v1-gradle-cache-{{ checksum "build.gradle" }}
       # - run: ./gradlew --no-daemon -x check install --stacktrace --info
-      - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info --parallel
+      # - run: ./gradlew --no-daemon --max-workers 2 -x check install --stacktrace --info --parallel
       - run:
           name: Upload artifacts
           command: |
