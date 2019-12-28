@@ -90,6 +90,6 @@ workflows:
   build_and_test:
     jobs:
       - build:
-          context: ci-oss
+          context: oss
       - test-gradle:
           requires: [build]
