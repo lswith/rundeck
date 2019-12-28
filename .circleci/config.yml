@@ -90,6 +90,6 @@ workflows:
   build_and_test:
     jobs:
       - build:
-          context: 
-      - test-gradle: rundeck-oss
+          context: rundeck-oss
+      - test-gradle:
           requires: [build]
